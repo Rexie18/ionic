@@ -1,0 +1,106 @@
+<script src="http://code.ionicframework.com/1.0.1/js/ionic.bundle.min.js"></script>
+<link href="http://code.ionicframework.com/1.0.1/css/ionic.min.css" rel="stylesheet"/>
+<div ng-app="demoApp">
+    <script id="post-partial.html" type="text/ng-template">
+        <div ng-repeat="post in posts">
+                <h2 ng-bind-html="post.title"></h2>
+                <p ng-bind-html="post.content"></p>
+            </div>
+    </script>
+    <script id="home.html" type="text/ng-template">
+      <!-- The title of the ion-view will be shown on the navbar -->
+      <ion-view view-title="Home">
+        <ion-content>
+          <!-- The content of the page -->
+            <!--<a ui-sref="category({slug:'hindi-shayari'})">Go to hindi-shayari category!</a>-->
+            <div ng-include="'post-partial.html'"></div>
+        </ion-content>
+      </ion-view>
+    </script>
+    
+    <script id="category.html" type="text/ng-template">
+      <!-- The title of the ion-view will be shown on the navbar -->
+      <ion-view view-title="Category">
+        <ion-content>
+          <!-- The content of the page -->
+            <h1 ng-bind-html="category"></h1>
+          <div ng-include="'post-partial.html'"></div>
+        </ion-content>
+      </ion-view>
+    </script>
+    
+    
+    <ion-tabs class="tabs-positive">
+    <ion-tab icon="ion-home" ui-sref="home">
+      <ion-nav-view name="home"></ion-nav-view>
+    </ion-tab>
+    <ion-tab icon="ion-navicon-round" ui-sref="category({slug:'hindi-shayari'})">
+      <ion-nav-view name="category"></ion-nav-view>
+    </ion-tab>
+  </ion-tabs>
+</div>
+
+
+
+
+angular.module('demoApp', ['ionic'])
+.config(function($stateProvider, $urlRouterProvider) {
+  $stateProvider
+  .state('home', {
+      url: '/',
+      views: {
+          home: {
+            templateUrl: 'home.html',
+            controller: 'CatsCtrl'
+      }
+    }
+  })
+  .state('category', {
+      url: '/category/:slug',
+      views: {
+          category: {
+              templateUrl: 'category.html',
+              controller: 'CatsPostsCtrl'
+          }
+      }
+  });
+    $urlRouterProvider.otherwise('/');
+})
+.controller('CatsCtrl', function($scope, $http) {
+
+  // You can change this url to experiment with other endpoints
+  var categoriesApi = 'http://shayarihunt.com/wp-json/posts?_jsonp=JSON_CALLBACK';
+
+  // This should go in a service so we can reuse it
+   $http.jsonp( categoriesApi, {cache:true} ).
+    success(function(data, status, headers, config) {
+      $scope.posts = data;
+     console.log( data );
+     }).
+    error(function(data, status, headers, config) {
+  console.log( 'Post load error.', status, headers);
+ });
+
+})
+
+.controller('CatsPostsCtrl', function($scope, $http, $stateParams) {
+
+   console.log($stateParams);
+    // You can change this url to experiment with other endpoints
+   var postsApi = 'http://shayarihunt.com/wp-json/posts?filter[category_name]=' + $stateParams.slug + '&_jsonp=JSON_CALLBACK';
+    $scope.category = $stateParams.slug;
+  // This should go in a service so we can reuse it
+    $http.jsonp( postsApi, {cache:true} ).
+  success(function(data, status, headers, config) {
+  $scope.posts = data;
+  console.log( data );
+   }).
+    error(function(data, status, headers, config) {
+      console.log( 'Post load error.' );
+    });
+
+   })
+   
+   
+   
+   http://jsfiddle.net/awolf2904/2L5qcxtc/
