@@ -1,0 +1,53 @@
+/* Empty. Add your own CSS if you like */
+.sort{
+	background-color: #efe9e9;
+	border: 1px solid gray;
+	border-radius: 5px;
+	width: 70%;
+}
+.sort:hover{
+	width: 80%;
+}
+.history{
+	padding: 1em;
+}
+#social{
+	
+	margin-left: 0.2em;
+	margin-right: -0.70em;
+	width: 33.5%;
+	margin-top: 0.5em;
+	
+}
+h5, .ion-ios-telephone, .ion-printer, .ion-email{
+	padding-left: 1em;
+}
+h5{
+	padding-top:-1em;
+	margin-top: -0.7em;
+}
+
+/* Empty. Add your own CSS if you like */
+.popover {
+  height: auto !important;
+}
+.popover ion-header-bar {
+  position: relative;
+}
+.popover ion-content {
+  top: 0;
+  position: relative;
+}
+.popover-inner-content {
+  width: 100%;
+  padding: 5px 20px;
+}
+ .scroll {
+	 height: 98%;
+ }
+.tabs-striped .tabs{
+	position: fixed;
+    bottom: 0;
+    right: 0;
+}
+
