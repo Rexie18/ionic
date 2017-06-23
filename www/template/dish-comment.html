@@ -1,0 +1,29 @@
+
+   
+      <ion-modal-view>
+        <ion-header-bar class="bar bar-header bar-positive">
+          <h1 class="title">Dish Comment</h1>
+          <button class="button button-clear button-primary" ng-click="modal.hide()">Cancel</button>
+        </ion-header-bar>
+        <ion-content class="padding">
+          <div class="list">
+            <label class="item item-input">
+              <span class="input-label">Your Name</span>
+              <input ng-model="mycomment.author" type="text">
+            </label>
+			 <label class="item item-input item-select">
+          <span class="input-label">Rating</span>
+            <select ng-model="mycomment.rating">
+                <option ng-repeat="n in [1,2,3,4,5]" value="{{n}}">{{n}}</option>
+            </select>
+        </label>
+            <label class="item item-input">
+              <span class="input-label">Comment</span>
+              <input ng-model="mycomment.comment" type="text">
+            </label>
+            <button class="button button-full button-positive" ng-click="submitComment(newUser)">Submit</button>
+          </div>
+        </ion-content>
+      </ion-modal-view>
+     
+	
