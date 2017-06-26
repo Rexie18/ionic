@@ -193,30 +193,18 @@ angular.module('conFusion.controllers', [])
 	*/
 
 	//testing new Favroties local storage
-	$scope.favoriteData = $localStorage.getObject('localFav', '{}');
 	$scope.fav = favoriteFactory.getFavorites();
 	 
 		$scope.addFavorite = function (index) {
 			var newFav = $scope.dish;
 			console.log($scope.fav);
-			
 			$scope.fav.push(newFav);
-			for(i = 0; i < $scope.favoriteData; i++){
-				if ($scope.favoriteData[i].id === index){
-					return;
-				}
-			$scope.favoriteData.push = $scope.fav;
-			}
-			favoriteFactory.addToFavorites(index);
 			
-			$localStorage.storeObject('localFav', $scope.favoriteData);
-			console.log('Added Favorite', $scope.favoriteData);
+			favoriteFactory.addToFavorites(index);
 			$ionicListDelegate.closeOptionButtons();
 			$scope.popover.hide();
 	};
-	
-	
-	
+		
 	/*add to favorites
 	 
 	$scope.fav = favoriteFactory.getFavorites();
@@ -317,12 +305,11 @@ angular.module('conFusion.controllers', [])
             
          }])
 		 
-		.controller('FavoritesController', ['$scope', 'dishes', 'favorites', 'favoriteFactory', 'baseURL', '$ionicListDelegate', '$ionicPopup', '$ionicLoading', '$timeout', '$localStorage',function ($scope, dishes, favorites, favoriteFactory, baseURL, $ionicListDelegate, $ionicPopup, $ionicLoading, $timeout, $localStorage) {
+		.controller('FavoritesController', ['$scope', 'dishes', 'favorites', 'favoriteFactory', 'baseURL', '$ionicListDelegate', '$ionicPopup', '$ionicLoading', '$timeout', '$localStorage', function ($scope, dishes, favorites, favoriteFactory, baseURL, $ionicListDelegate, $ionicPopup, $ionicLoading, $timeout, $localStorage) {
 
     $scope.baseURL = baseURL;
 	
     $scope.shouldShowDelete = false;
-
     $scope.favorites = favorites;
 
     $scope.dishes = dishes;
